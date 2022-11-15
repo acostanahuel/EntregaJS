@@ -43,7 +43,7 @@ eleccion = prompt ("Ingrese 1 para filtrar por sector, ingrese 2 para filtrar po
 if (eleccion === 1){
     let mostrarSector= "";
      for (let entrada of entradas) {
-        mostrarSector += `${entrada.id} - ${entrada.sector} - ${entrada.precio} \n `}
+        mostrarSector += `${entradas.id} - ${entradas.sector} - ${entradas.precio} \n `}
         
     let sectorElegido = prompt (`${mostrarSector} digita el numero en pantalla para confirmar el sector`);
         alert ("Gracias por su compra"); 
@@ -55,10 +55,12 @@ if (eleccion === 1){
     if (encontrado){
     let mensaje= "" ;           
     encontrado.forEach(entradas =>  {
-        mensaje += `${entradas.id} - ${entradas.sector} - ${entradas.precio}`
+        mensaje += ` ${entradas.id} -   
+                     ${entradas.sector}
+                  -  ${entradas.precio}`
                                     })
-       
-    alert (mensaje);
+       prompt (`${mensaje} digite el numero de la entrada que desea adquirir`);
+       alert ("Gracias por su compra");
 
 
     
