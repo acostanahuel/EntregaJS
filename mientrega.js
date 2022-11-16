@@ -13,25 +13,10 @@ const entradas = [
     { id: 12, sector: " platea b", precio: 1300 },
     { id: 13, sector: " campo", precio: 690 },
     { id: 14, sector: " campo vip", precio: 1000 },
-    { id: 18, sector: " platea a", precio: 3400 },
-    { id: 19, sector: " platea b", precio: 2750 },
-    { id: 20, sector: " platea b", precio: 1300 },
-    { id: 21, sector: " campo", precio: 5430 },
-    { id: 23, sector: " campo vip", precio: 1000 },
-    { id: 24, sector: " platea a", precio: 1300 },
-    { id: 25, sector: " platea b", precio: 1600 },
-    { id: 26, sector: " platea a", precio: 800 },
-    { id: 27, sector: " platea b", precio: 3090 },
-    { id: 28, sector: " platea b", precio: 14600 },
-    { id: 29, sector: " campo", precio: 7430 },
-    { id: 30, sector: " campo vip", precio: 2300 },
-    { id: 31, sector: " platea a", precio: 3500 },
-    { id: 32, sector: " platea b", precio: 2600 },
-
-]
+];
 
 
-let nombre = prompt("Ingrese su nombre y a continuación podrá comprar su rentrada");
+let nombre = prompt("Ingrese su nombre y a continuación podrá comprar su entrada");
 alert(`Bienvenidx ${nombre} a tu MidnightsTour`);
 
 let eleccion = prompt("Ingrese 1 para filtrar por sector, ingrese 2 para filtrar por precio");
@@ -42,34 +27,48 @@ while (eleccion !== "1" && eleccion !== "2") {
 
 
 if (eleccion == 1) {
+
     let sectorElegido;
-    let eleccionId;
-    let mostrarSector;
+    let eleccionId = 0;
+    let mostrarSector = "Digite el numero en pantalla para confirmar el sector:";
     for (let entrada of entradas) {
         mostrarSector += `\n${entrada.id} - ${entrada.sector} - ${entrada.precio}`
     }
 
-    sectorElegido = parseInt(prompt(`${mostrarSector} digita el numero en pantalla para confirmar el sector`));
-    eleccionId = entradas.filter(eleccion => eleccion.id == sectorElegido)
-    console.log(eleccionId)
+    sectorElegido = parseInt(prompt(`${mostrarSector} \n`));
+    eleccionId = entradas.filter(eleccion => eleccion.id === sectorElegido);
+    while (!eleccionId.length) {
+        alert("Opcion incorrecta ingrese nuevamente");
+        sectorElegido = parseInt(prompt(`${mostrarSector}`));
+        eleccionId = entradas.filter(eleccion => eleccion.id === sectorElegido);
+    }
+    alert("Sector elegido: " + sectorElegido);
     alert("Gracias por su compra");
     
 
-} else if (eleccion == 2){
+} else { //2
+
     let filtrado = parseInt(prompt("Ingrese el precio maximo que desea pagar"));
-    let encontrado = entradas.filter(entradas => entradas.precio < filtrado);
-
-    if (encontrado) {
-        let mensaje = "";
-        encontrado.forEach(entradas => {
-            mensaje += `\n${entradas.id} - ${entradas.sector} - ${entradas.precio}`
-        })
-
-        alert(mensaje);
-
-
-
-    } else {
-        alert("No hay entradas dentro de ese rango de precio");
+    let encontrado = entradas.filter(entrada => entrada.precio <= filtrado);
+    while (!encontrado.length) {
+        alert("No hay entradas dentro de ese rango de precio, ingrese nuevamente.");
+        filtrado = parseInt(prompt("Ingrese el precio maximo que desea pagar"));
+        encontrado = entradas.filter(entrada => entrada.precio <= filtrado);
     }
+
+    let mensaje = "";
+    encontrado.forEach(entrada => {
+        mensaje += `\n${entrada.id} - ${entrada.sector} - ${entrada.precio}`
+    })
+
+    let sectorElegido = parseInt(prompt(`Digite el numero en pantalla para confirmar el sector: \n${mensaje}`));
+    let eleccionId = encontrado.filter(eleccion => eleccion.id === sectorElegido);
+    while (!eleccionId.length) {
+        alert("Opcion incorrecta ingrese nuevamente");
+        sectorElegido = parseInt(prompt(`Digite el numero en pantalla para confirmar el sector: \n${mensaje}`));
+        eleccionId = encontrado.filter(eleccion => eleccion.id === sectorElegido);
+    }
+    alert("Sector elegido: " + sectorElegido);
+    alert("Gracias por su compra");
+    
 }
